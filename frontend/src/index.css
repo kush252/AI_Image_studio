@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Theme tokens. Dark is the default for an image editor: a bright UI next to
+   the canvas biases your perception of the image's own tone. */
+@layer base {
+  :root {
+    --background: 220 18% 9%;
+    --foreground: 210 20% 92%;
+    --card: 220 16% 12%;
+    --card-foreground: 210 20% 92%;
+    --popover: 220 18% 11%;
+    --popover-foreground: 210 20% 92%;
+    --primary: 199 89% 52%;
+    --primary-foreground: 220 25% 8%;
+    --secondary: 220 14% 18%;
+    --secondary-foreground: 210 20% 90%;
+    --muted: 220 14% 16%;
+    --muted-foreground: 215 14% 60%;
+    --accent: 220 14% 20%;
+    --accent-foreground: 210 20% 92%;
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 22%;
+    --input: 220 13% 24%;
+    --ring: 199 89% 52%;
+    --radius: 0.6rem;
+
+    /* Severity scale, chosen to stay distinguishable for the most common
+       colour-vision deficiencies: it varies lightness as well as hue, so the
+       ordering survives in greyscale. */
+    --sev-none: 160 60% 45%;
+    --sev-info: 199 80% 55%;
+    --sev-minor: 45 90% 55%;
+    --sev-moderate: 28 90% 55%;
+    --sev-severe: 0 75% 58%;
+  }
+
+  :root[data-theme='light'] {
+    --background: 210 25% 98%;
+    --foreground: 220 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
+    --primary: 199 89% 42%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 215 20% 93%;
+    --secondary-foreground: 220 25% 15%;
+    --muted: 215 20% 94%;
+    --muted-foreground: 215 14% 42%;
+    --accent: 215 20% 90%;
+    --accent-foreground: 220 25% 12%;
+    --destructive: 0 72% 48%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 215 18% 86%;
+    --input: 215 18% 84%;
+    --ring: 199 89% 42%;
+
+    --sev-none: 160 60% 35%;
+    --sev-info: 199 80% 42%;
+    --sev-minor: 42 85% 42%;
+    --sev-moderate: 28 85% 45%;
+    --sev-severe: 0 72% 48%;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior: none;
+  }
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  /* Visible focus for keyboard users, suppressed for pointer clicks. */
+  :focus-visible {
+    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 9px;
+    height: 9px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  /* Checkerboard behind images with alpha. */
+  .alpha-grid {
+    background-image:
+      linear-gradient(45deg, hsl(var(--muted)) 25%, transparent 25%),
+      linear-gradient(-45deg, hsl(var(--muted)) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, hsl(var(--muted)) 75%),
+      linear-gradient(-45deg, transparent 75%, hsl(var(--muted)) 75%);
+    background-size: 18px 18px;
+    background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+  }
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* uPlot: inherit theme colours rather than its own light defaults. */
+.uplot,
+.uplot * {
+  font-family: inherit !important;
+}
+.u-legend {
+  font-size: 11px;
+  color: hsl(var(--muted-foreground));
+}
+.u-select {
+  background: hsl(var(--primary) / 0.18);
+}
+.katex {
+  font-size: 1em;
+}
+.katex-display {
+  margin: 0.35em 0 !important;
+  overflow-x: auto;
+  overflow-y: hidden;
+}

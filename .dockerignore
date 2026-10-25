@@ -1,0 +1,15 @@
+# Keep the build context small and reproducible.
+.venv/
+venv/
+**/__pycache__/
+**/*.pyc
+.pytest_cache/
+**/node_modules/
+frontend/dist/
+# Built on the host; the image compiles its own copy in the node stage.
+backend/app/static/
+backend/tests/
+samples/_advisor_output/
+scratchpad/
+.git/
+*.log
