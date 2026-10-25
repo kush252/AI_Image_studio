@@ -1,3 +1,14 @@
+---
+title: AI Image Studio
+emoji: 🖼️
+colorFrom: indigo
+colorTo: blue
+sdk: docker
+app_port: 8000
+pinned: false
+license: mit
+---
+
 # Image Processing Platform
 
 A classical image-processing platform in two halves:
